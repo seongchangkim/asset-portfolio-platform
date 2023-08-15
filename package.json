@@ -1,0 +1,48 @@
+{
+  "name": "asset-portfolio-platform",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon server/index",
+    "build": "next build",
+    "start": "NODE_ENV=production node server/index",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@headlessui/react": "^0.0.0-insiders.cc163ea",
+    "@reduxjs/toolkit": "^1.9.5",
+    "autoprefixer": "^10.4.14",
+    "axios": "^1.4.0",
+    "chart.js": "^4.3.3",
+    "cookie-parser": "^1.4.6",
+    "crypto": "^1.0.1",
+    "dayjs": "^1.11.9",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "firebase": "^10.1.0",
+    "jsonwebtoken": "^9.0.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql": "^2.18.1",
+    "next": "13.4.9",
+    "postcss": "^8.4.25",
+    "postcss-nesting": "^12.0.0",
+    "rand-token": "^1.0.1",
+    "react": "18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "18.2.0",
+    "react-redux": "^8.1.1",
+    "redux": "^4.2.1",
+    "redux-persist": "^6.0.0",
+    "tailwindcss": "^3.3.2",
+    "uuid": "^9.0.0",
+    "validator": "^13.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "type": "module"
+}
