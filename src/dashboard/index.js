@@ -26,6 +26,7 @@ const DashBoard = ({children}) => {
     const onDropDown = () => setDropDown((current) => !current);
 
     const handleLogout = async () => {
+      console.log(BASE_URL);
       const res = await axios.post(`${BASE_URL}/api/member/logout`, {
           id: getMember.id
       });

@@ -1,7 +1,6 @@
 /* eslint-env node */
 
 module.exports = {
-  modules: true,
   plugins: {  
     "tailwindcss/nesting": "postcss-nesting",
     tailwindcss: {},
