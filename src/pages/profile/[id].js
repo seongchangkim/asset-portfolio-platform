@@ -57,7 +57,6 @@ const Member = () => {
         return Object.keys(obj).length === 0 && obj.constructor === Object;
     }
 
-    
     // 이미지 프로필 사진 변경
     const onChangeProfileImg = (event) => {
         const file = event.target.files || event.dataTransfer.files;

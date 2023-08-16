@@ -26,7 +26,7 @@ export default function Home() {
 
     if(getMember.socialLoginType === "NONE"){
       checkAuth(`${BASE_URL}/api/member/auth`);   
-    }else{
+    }else if(getMember.socialLoginType !== "NONE" && getMember.socialLoginType !== undefined){
       checkAuth(`${BASE_URL}/api/member/social-login/auth/${getMember.socialLoginType}/${getMember.id}`);    
     } 
   }
