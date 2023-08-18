@@ -4,7 +4,6 @@ const MemberRadioBtn = ({value, onChange, stateValue}) => {
         onChange(event.target.value);
     }
 
-    console.log(`stateValue : ${stateValue}`);
     return (
         <div className="flex item-center gap-x-1 mr-2">
             <input 
@@ -20,7 +19,7 @@ const MemberRadioBtn = ({value, onChange, stateValue}) => {
             />
             <div className="text-base font-medium text-gray-900">{value}</div>
         </div>
-    )
+    );
 }
 
 export default MemberRadioBtn;

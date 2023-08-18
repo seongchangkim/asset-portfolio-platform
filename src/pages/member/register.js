@@ -1,11 +1,21 @@
-import MemberInputForm from "@/components/member/member_input_form";
+// import MemberInputForm from "@/components/member/member_input_form";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import BASE_URL from "@/global/base_url";
 import { useRouter } from 'next/router'
-import MemberBtn from "@/components/member/member_btn";
+// import MemberBtn from "@/components/member/member_btn";
 import { useDispatch, useSelector } from "react-redux";
 import { setMemberState, getMemberState } from "@/store/member/member_slice";
+import dynamic from "next/dynamic";
+
+// 로그인 및 회원가입 입력폼 컴포넌트 동적 가져오기  
+const MemberInputForm = dynamic(() => import("@/components/member/member_input_form"),{
+    ssr: false
+});
+// 로그인 및 회원가입 버튼 컴포넌트 동적 가져오기 
+const MemberBtn = dynamic(() => import("@/components/member/member_btn"), {
+    ssr: false
+});
 
 const Register = () => {
     const router = useRouter();

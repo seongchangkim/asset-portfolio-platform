@@ -1,13 +1,19 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMemberState } from "@/store/member/member_slice";
 import { getAssetPortfolioState, setAssetPortfolioState } from "@/store/asset_portfolio/asset_portfolio_slice";
-import PortfolioAssetInput from "@/components/asset_portfolio/portfolio_asset_input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import BASE_URL from "@/global/base_url";
 import { useRouter } from "next/router";
+// 코드 분할 작업(dynamic import)
+import dynamic from "next/dynamic";
+
+// 입력한 자산 입력폼 컴포넌트 dynamic import하도록 설정
+const PortfolioAssetInput = dynamic(() => import("@/components/asset_portfolio/portfolio_asset_input"), {
+    ssr: false
+});
 
 const AssetPortfolioCreatePage = () => {
 

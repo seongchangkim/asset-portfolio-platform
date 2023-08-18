@@ -3,6 +3,7 @@ const MemberDetailInputForm = ({label, id, inputType, value, onChange = null, is
     const onChangeValue = (event) => {
         onChange(event.target.value);
     }
+    
     return (
         <div className="xl:w-1/3 lg:w-1/2 md:w-1/2 flex flex-col mb-6 mr-48">
             <label htmlFor={id} className="pb-2 text-sm font-bold text-gray-800">{label}</label>

@@ -1,14 +1,35 @@
-import DashBoard from "@/dashboard";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import MemberDetailInputForm from "@/components/member/member_detail_input_form";
-import MemberRadioBtn from "@/components/member/member_radio_btn";
 
 // firebase storage
 import { deleteObject, getDownloadURL, listAll, ref, uploadBytes, uploadString } from 'firebase/storage';
 import { fStorage } from "@/global/firebase";
-import MemberDetailBtn from "@/components/member/member_detail_btn";
+
+// dynamic import(next.js 코드 분할 작업)
+import dynamic from "next/dynamic";
+// next/legacy/image 적용
+import Image from "next/legacy/image";
+
+// DashBoard 컴포넌트 dynamic import하도록 설정
+const DashBoard = dynamic(() => import("@/dashboard"), {
+    ssr: false
+});
+
+// 회원 상세보기 입력폼 컴포넌트 dynamic import하도록 설정
+const MemberDetailInputForm = dynamic(() => import("@/components/member/member_detail_input_form"), {
+    ssr: false
+});
+
+// 회원 상세보기 라디오 버튼 컴포넌트 dynamic import하도록 설정
+const MemberRadioBtn = dynamic(() => import("@/components/member/member_radio_btn"), {
+    ssr: false
+});
+
+// 회원 상세보기 버튼 컴포넌트 dynamic import하도록 설정
+const MemberDetailBtn = dynamic(() => import("@/components/member/member_detail_btn"), {
+    ssr: false
+});
 
 const Member = () => {
 
@@ -219,10 +240,11 @@ const Member = () => {
                         for="profileUrl"
                         class="relative cursor-default rounded-md"
                     >
-                        <img
-                            className="w-24 h-24 rounded-full"
+                        <Image
+                            width="96px"
+                            height="96px"
+                            className="rounded-full"
                             src={profileUrl === null ? "/icons/default-user-profile.png" : profileUrl}
-                            alt=""
                         />
 
                         <input

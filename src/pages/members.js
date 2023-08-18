@@ -1,9 +1,16 @@
-import DashBoard from "../dashboard";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
+import Image from "next/legacy/image";
+import dynamic from "next/dynamic";
 
+// DashBoard 컴포넌트를 dynamic import하도록 설정.
+const DashBoard = dynamic(() => import("../dashboard"), {
+    ssr: false
+});
+
+// 회원 목록 공통 API(페이징 처리 및 검색 기능)
 const getMemberListUrl = "/api/admin/members" 
 
 const Members = () => {
@@ -209,14 +216,15 @@ const Members = () => {
                                                     <td className="p-4 text-center whitespace-nowrap text-sm font-normal text-gray-900">
                                                         {member["member_id"]}
                                                     </td>
-                                                        <Link href={`/member/${member["member_id"]}`} key={member["member_id"]}>
+                                                        <Link href={`/member/${member["member_id"]}`} key={member["member_id"]} prefetch={false}>
                                                             <td className="p-6 text-center whitespace-nowrap text-sm font-normal text-gray-500 cursor-default">
                                                                 <div className="flex items-center justify-center">
                                                                     <div className="flex-shrink-0 mr-2">
-                                                                        <img
-                                                                            className="w-10 h-10 rounded-full"
+                                                                        <Image
+                                                                            width="40px"
+                                                                            height="40px"
+                                                                            className="rounded-full"
                                                                             src={member.profile_url !== null ? member.profile_url : "/icons/default-user-profile.png"}
-                                                                            alt=""
                                                                         /> 
                                                                     </div>
                                                                     <span className="cursor-default">
@@ -278,8 +286,6 @@ const Members = () => {
                                             </div>)
                                         )
                                     }
-                                    
-                                    
                                     {
                                         currentMemberPage === lastMemberPage ? 
                                         <></> : 
@@ -293,7 +299,6 @@ const Members = () => {
                                             </svg>
                                         </div>
                                     }
-                                    
                                 </nav>
                             </div>
                         </div>

@@ -16,8 +16,7 @@ import {
   Tooltip,
   Legend,
   ArcElement
-} from 'chart.js'
-import { Chart } from 'react-chartjs-2'
+} from 'chart.js';
 
 ChartJS.register(
   CategoryScale,

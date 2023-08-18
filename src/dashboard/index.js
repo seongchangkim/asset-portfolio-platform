@@ -5,6 +5,7 @@ import axios from "axios";
 import BASE_URL from "@/global/base_url";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from 'next/legacy/image';
 
 const navItem = [
   {
@@ -53,7 +54,7 @@ const DashBoard = ({children}) => {
                     <div>
                       <hr className="my-4 md:min-w-full"/>
                         <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">홈</h6>
-                        <Link href={navItem[0].url}>
+                        <Link href={navItem[0].url} prefetch={false}>
                           <div className="text-xs uppercase py-3 font-bold block text-blueGray-800 hover:text-blueGray-500"><i className="fab fa-angular mr-2 text-sm text-blueGray-400"></i>대시보드</div>
                         </Link>
                     </div>
@@ -62,7 +63,7 @@ const DashBoard = ({children}) => {
                         <div>
                           <hr className="my-4 md:min-w-full"/>
                           <h6 className="md:min-w-full text-blueGray-500 text-sm uppercase font-bold block pt-1 pb-4 no-underline">회원</h6>
-                          <Link href={navItem[1].url}>
+                          <Link href={navItem[1].url} prefetch={false}>
                             <div className="text-xs uppercase py-3 font-bold block text-blueGray-800 hover:text-blueGray-500 cursor-default"><i className="fas fa-newspaper mr-2 text-sm text-blueGray-400"></i>회원 목록</div>
                           </Link>
                           {/* <a href="#" className="text-xs uppercase py-3 font-bold block text-blueGray-800 hover:text-blueGray-500"><i className="fas fa-user-circle mr-2 text-sm text-blueGray-400"></i>Page 2 for Section 3</a>
@@ -90,9 +91,11 @@ const DashBoard = ({children}) => {
                         <span 
                           onClick={onDropDown}
                           className="w-12 h-12 text-sm text-white bg-blueGray-300 inline-flex items-center justify-center rounded-full">
-                          <img 
-                            alt="..." 
-                            className="w-full rounded-full align-middle border-none shadow-lg" 
+                          <Image
+                            alt="..."
+                            width="42px"
+                            height="42px" 
+                            className="rounded-full align-middle border-none shadow p-2" 
                             src={(getMember.profile === null || getMember.profile === undefined) ? "/icons/default-user-profile.png" : getMember.profile}
                           />
                         </span>
@@ -115,7 +118,7 @@ const DashBoard = ({children}) => {
                                       <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-4">Share</a>
                                       <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-5">Add to favorites</a>
                                   </div> */}
-                                  <Link href={`/profile/${getMember.id}`}>
+                                  <Link href={`/profile/${getMember.id}`} prefetch={false}>
                                     <div className="py-1" role="none">
                                         <div 
                                             className="text-gray-700 block px-4 py-2 text-sm cursor-default"

@@ -3,8 +3,13 @@ import { useEffect, useCallback } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setMemberState } from "@/store/member/member_slice";
-import { setAssetPortfolioState} from "@/store/asset_portfolio/asset_portfolio_slice";
-import Loading from "@/components/util/loading";
+import { setAssetPortfolioState } from "@/store/asset_portfolio/asset_portfolio_slice";
+import dynamic from "next/dynamic";
+
+// 로딩 전용 컴포넌트를 dynamic import하도록 설정
+const Loading = dynamic(() => import("@/components/util/loading"), {
+    ssr: false
+}); 
 
 const SocialLoginLoadingPage = () => {
     const router = useRouter();

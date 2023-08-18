@@ -6,7 +6,8 @@
     "dev": "NODE_ENV=development nodemon server/index",
     "build": "next build",
     "start": "NODE_ENV=production node server/index",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
@@ -26,15 +27,15 @@
     "firebase": "^10.1.0",
     "jsonwebtoken": "^9.0.1",
     "multer": "^1.4.5-lts.1",
-    "mysql": "^2.18.1",
     "mysql2": "^3.6.0",
-    "next": "13.4.9",
+    "next": "^13.4.9",
     "postcss": "^8.4.25",
     "postcss-nesting": "^12.0.0",
     "rand-token": "^1.0.1",
     "react": "18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
+    "react-loading-skeleton": "^3.3.1",
     "react-redux": "^8.1.1",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
@@ -43,6 +44,7 @@
     "validator": "^13.9.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^13.4.18",
     "nodemon": "^3.0.1"
   },
   "type": "module"

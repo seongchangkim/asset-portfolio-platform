@@ -1,14 +1,24 @@
-import { useState, useEffect } from 'react';
+// react hook
+import { useState, useEffect, lazy, Suspense } from 'react';
+// axios 
 import axios from 'axios';
-import BASE_URL from '@/global/base_url';
+// next 라우터
 import { useRouter } from "next/navigation";
-import DashBoard from '../dashboard';
-import AssetPortfolioDetail from '@/components/asset_portfolio/asset_portfolio_detail';
+
+// 서버 root url
+import BASE_URL from '@/global/base_url';
+// 로딩 페이지 컴포넌트 가져오기
+import Loading from '@/components/util/loading';
 
 // redux
 import { setMemberState, getMemberState } from "@/store/member/member_slice";
 import { useSelector, useDispatch } from "react-redux";
 import { setAssetPortfolioState } from '@/store/asset_portfolio/asset_portfolio_slice';
+
+// 포트폴리오 상세보기 컴포넌트 lazy loading 하기
+const AssetPortfolioDetail = lazy(() => import('@/components/asset_portfolio/asset_portfolio_detail'));
+// 대시보드 컴포넌트 lazy loading 하기
+const DashBoard = lazy(() => import('../dashboard'));
 
 export default function Home() {
   // 라우터
@@ -17,9 +27,6 @@ export default function Home() {
 
   const getMember = useSelector(getMemberState);
   const dispatch = useDispatch();
-
-  // 로딩 트리거
-  const [loading, setLoading] = useState(true);
   
   // 로그인 체크
   const memberAuth = async () => {
@@ -44,19 +51,13 @@ export default function Home() {
 
   useEffect(() => {
     memberAuth();
-    setLoading(current => !current);
   },[]);
 
-  return (
-    <div>
-      {loading ? (<div>loading</div>) : 
-        (
-          <DashBoard>
-            <AssetPortfolioDetail />
-          </DashBoard>
-        )
-      }
-    </div>
-    
+  return (  
+    <Suspense fallback={<Loading content="로딩 중입니다.."/>}>
+      <DashBoard>
+        <AssetPortfolioDetail />
+      </DashBoard>
+    </Suspense>
   );
 }
