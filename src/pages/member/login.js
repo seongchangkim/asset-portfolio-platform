@@ -1,11 +1,11 @@
-// import MemberInputForm from "@/components/member/member_input_form";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import BASE_URL from "@/global/base_url";
 import axios from "axios";
-import { useState } from "react";
+import { useState, Fragment } from "react";
+
 import Link from "next/link";
-// import MemberBtn from "@/components/member/member_btn";
+
 import { setMemberState } from "@/store/member/member_slice";
 import { useDispatch } from "react-redux";
 import { setAssetPortfolioState } from "@/store/asset_portfolio/asset_portfolio_slice";
