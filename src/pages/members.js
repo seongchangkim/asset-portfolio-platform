@@ -84,18 +84,22 @@ const Members = () => {
     // 검색 키워드가 있는지 확인하고 있으면 url query에 추가
     // 회원 목록 조회 API 호출(페이징, 검색)
     const callMemberListAPI = async (url, isSeacrhEvent) => {
-        let callApiUrl = url;
+        try{
+            let callApiUrl = url;
 
-        if(keyword !== "" && selectSearchCategoryValue !== "" && !isSeacrhEvent){
-            callApiUrl += `&category=${selectSearchCategoryValue}&keyword=${keyword}`;
+            if(keyword !== "" && selectSearchCategoryValue !== "" && !isSeacrhEvent){
+                callApiUrl += `&category=${selectSearchCategoryValue}&keyword=${keyword}`;
+            }
+
+            const res = await axios.get(callApiUrl);
+            const { result, currentPage, lastPage} = res.data;
+
+            setMembers(result);
+            setCurrentMemberPage(currentPage);
+            setLastMemberPage(lastPage);
+        }catch(e){
+            console.log(e);
         }
-
-        const res = await axios.get(callApiUrl);
-        const { result, currentPage, lastPage} = res.data;
-
-        setMembers(result);
-        setCurrentMemberPage(currentPage);
-        setLastMemberPage(lastPage);
     }  
 
     return (

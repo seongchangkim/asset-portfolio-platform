@@ -55,24 +55,29 @@ const Member = () => {
 
     const getProfileInfo = async () => {
         if(router.isReady){
-            const { id } = router.query;
-            setMemberId(id);
-            
-            const res = await axios.get(`/api/member/${id}`); 
+            try{
+                const { id } = router.query;
+                setMemberId(id);
+                
+                const res = await axios.get(`/api/member/${id}`); 
 
-            const { name, tel, profile_url, token } = res.data.result;
+                const { name, tel, profile_url, token } = res.data.result;
 
-            if(token !== getMember.token){
-                alert("잘못된 접근입니다.");
-                router.back();
+                if(token !== getMember.token){
+                    alert("잘못된 접근입니다.");
+                    router.back();
+                }
+                
+                // 회원 이름
+                setName(name);
+                // 회원 전화번호
+                setTel(tel);
+                // 회원 프로필 사진
+                setProfileUrl(profile_url);
+            }catch(e) {
+                console.log(e);
             }
             
-            // 회원 이름
-            setName(name);
-            // 회원 전화번호
-            setTel(tel);
-            // 회원 프로필 사진
-            setProfileUrl(profile_url);
         }
 
         return () => {};
@@ -179,7 +184,7 @@ const Member = () => {
             replace, 
             authPageCategory: "회원"
         });
-        getProfileInfo()
+        getProfileInfo();
     }, [router.isReady]);
 
     return (

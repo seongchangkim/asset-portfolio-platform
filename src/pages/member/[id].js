@@ -60,23 +60,28 @@ const Member = () => {
 
     const getMemberInfo = async () => {
         if(router.isReady){
-            const { id } = router.query;
-            setMemberId(id);
+            try{
+                const { id } = router.query;
+                setMemberId(id);
+                
+                const res = await axios.get(`/api/admin/member/${id}`); 
+                
+                // 회원 이름
+                setName(res.data.result[0].name);
+                // 회원 전화번호
+                setTel(res.data.result[0].tel);
+                // 회원 권한
+                setAuthRole(res.data.result[0].auth_role);
+                // 회원 프로필 사진
+                setProfileUrl(res.data.result[0].profile_url);
+                // 회원 이메일
+                setEmail(res.data.result[0].email);
+                // 회원 소셜 로그인
+                setSocialLoginType(res.data.result[0].social_login_type);
+            }catch(e){
+                console.log(e);
+            }
             
-            const res = await axios.get(`/api/admin/member/${id}`); 
-            
-            // 회원 이름
-            setName(res.data.result[0].name);
-            // 회원 전화번호
-            setTel(res.data.result[0].tel);
-            // 회원 권한
-            setAuthRole(res.data.result[0].auth_role);
-            // 회원 프로필 사진
-            setProfileUrl(res.data.result[0].profile_url);
-            // 회원 이메일
-            setEmail(res.data.result[0].email);
-            // 회원 소셜 로그인
-            setSocialLoginType(res.data.result[0].social_login_type);
         }
 
         return () => {};
