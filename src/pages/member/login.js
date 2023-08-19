@@ -34,7 +34,7 @@ const Login = () => {
         // 회원 상태값을 빈 값으로 변경
         dispatch(setMemberState({}));
     }, []);
-    
+
     // 로그인 
     const loginClick = async () => {
         const param = {
@@ -90,11 +90,10 @@ const Login = () => {
             
             <div className="flex justify-center sm:mx-auto sm:w-full sm:max-w-sm">
                 <Image
-                    src="/next.svg"
+                    src="/favicon.ico"
                     alt="Next.js Logo"
-                    width={180}
-                    height={37}
-                    priority
+                    width={70}
+                    height={70}
                 />
                 {/* <img className="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" /> */}
                 {/* <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">로그인</h2> */}

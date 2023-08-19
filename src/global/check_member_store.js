@@ -3,17 +3,10 @@ import BASE_URL from "./base_url";
 
 const checkMemberStore = async ({member, replace, authPageCategory}) => {
     if(Object.keys(member).length === 0) {
-        checkMemberProcessFunc({
-            id: member.id,
-            // 관리자 전용 페이지이면 팝업창 띄운 후 로그인 페이지로 이동
-            // 아니면 로그인 페이지로 이동
-            func: () => {
-                if(authPageCategory === "관리자"){
-                    alert("이 페이지는 관리자 전용 페이지입니다.");
-                }
-                replace("/member/login");
-            }
-        });
+        if(authPageCategory === "관리자"){
+            alert("이 페이지는 관리자 전용 페이지입니다.");
+        }
+        replace("/member/login");
     }else if(authPageCategory === "관리자" 
         && member.authRole !== "관리자") {
         checkMemberProcessFunc({
