@@ -12,7 +12,7 @@ const memberSql = {
     // 로그아웃(빈 토큰 수정)
     "logout": "UPDATE member SET token = '' WHERE member_id = ?",
     // 프로필 상세보기
-    "getProfileInfo" : "SELECT name, profile_url, tel FROM member WHERE member_id = ?",
+    "getProfileInfo" : "SELECT name, profile_url, tel, token FROM member WHERE member_id = ?",
     // 프로필 수정
     "updateProfile" : "UPDATE member SET name = ?, tel = ?, profile_url = ?, last_modified_at = CURRENT_TIMESTAMP WHERE member_id = ?",
     // 소셜 로그인 회원 존재 여부

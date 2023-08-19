@@ -1,5 +1,5 @@
 // react hook
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 // axios 
 import axios from 'axios';
 // next 라우터
@@ -14,6 +14,9 @@ import Loading from '@/components/util/loading';
 import { setMemberState, getMemberState } from "@/store/member/member_slice";
 import { useSelector, useDispatch } from "react-redux";
 import { setAssetPortfolioState } from '@/store/asset_portfolio/asset_portfolio_slice';
+
+// 회원 상태 저장소 존재 여부 함수 모듈 가져오기
+import checkMemberStore from '@/global/check_member_store';
 
 // 포트폴리오 상세보기 컴포넌트 lazy loading 하기
 const AssetPortfolioDetail = lazy(() => import('@/components/asset_portfolio/asset_portfolio_detail'));
@@ -50,6 +53,14 @@ export default function Home() {
   }
 
   useEffect(() => {
+    console.log(getMember);
+    // 회원 상태 저장소 존재 여부 함수 호출
+    // 회원 상태 저장소 빈 객체이면 로그인 페이지로 이동함.
+    checkMemberStore({
+      member: getMember, 
+      replace, 
+      authPageCategory : "회원"
+    });
     memberAuth();
   },[]);
 

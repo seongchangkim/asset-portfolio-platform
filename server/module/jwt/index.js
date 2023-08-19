@@ -11,7 +11,7 @@ const generateToken = (member) => {
         tel: member["tel"],
         profileUrl : member["profile_url"],
         authRole: member["auth_role"],
-        socialLoginType: member["social_login_type"]
+        socialLoginType: member["social_login_type"],
     };
 
     return {

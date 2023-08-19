@@ -37,7 +37,8 @@ const SocialLoginLoadingPage = () => {
                         profile: member.profile_url,
                         tel: member.tel,
                         authRole: member.auth_role,
-                        socialLoginType: member.social_login_type
+                        socialLoginType: member.social_login_type,
+                        token: member.token
                     }));
                     // 소셜로그인 API response 깂을 Asset Portfolio 상태 저장소 저장
                     dispatch(setAssetPortfolioState({
@@ -67,8 +68,7 @@ const SocialLoginLoadingPage = () => {
 
     useEffect(() => {
         if(router.isReady){
-            const { code, social_login_kind
-            } = router.query;
+            const { code, social_login_kind } = router.query;
             
             socialLoginHandle(code, social_login_kind);
         }

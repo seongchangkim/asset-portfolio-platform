@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import BASE_URL from "@/global/base_url";
 import axios from "axios";
-import { useState, Fragment } from "react";
+import { useState, useEffect } from "react";
 
 import Link from "next/link";
 
@@ -28,6 +28,13 @@ const Login = () => {
 
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        // 자산 포트폴리오 상태값을 빈 값으로 변경
+        dispatch(setAssetPortfolioState({}));
+        // 회원 상태값을 빈 값으로 변경
+        dispatch(setMemberState({}));
+    }, []);
+    
     // 로그인 
     const loginClick = async () => {
         const param = {
@@ -49,7 +56,8 @@ const Login = () => {
                 profile: member.profileUrl,
                 tel: member.tel,
                 authRole: member.authRole,
-                socialLoginType: member.socialLoginType
+                socialLoginType: member.socialLoginType,
+                token : member.token
             }));
             // 로그인 API의 response값을 Asset Portfoilio 저장소에 저장함.
             dispatch(setAssetPortfolioState({

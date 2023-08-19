@@ -10,6 +10,8 @@ import { useRouter } from "next/router";
 // 코드 분할 작업(dynamic import)
 import dynamic from "next/dynamic";
 
+import checkMemberStore from "@/global/check_member_store";
+
 // 입력한 자산 입력폼 컴포넌트 dynamic import하도록 설정
 const PortfolioAssetInput = dynamic(() => import("@/components/asset_portfolio/portfolio_asset_input"), {
     ssr: false
@@ -25,7 +27,7 @@ const AssetPortfolioCreatePage = () => {
     const dispatch = useDispatch();
 
     const router = useRouter();
-    const { back } = router;
+    const { back, replace } = router;
 
     // 수정 페이지인지 생성 페이지인지 체크하는 변수
     const [ funcKind, setFuncKind ] = useState("");
@@ -37,6 +39,12 @@ const AssetPortfolioCreatePage = () => {
     const [ registeredAssetRatio, setRegisteredAssetRatio ] = useState([0]);
 
     useEffect(() => {
+        checkMemberStore({
+            member : getMember, 
+            replace,
+            authPageCategory :"회원"
+        });
+
         if(router.isReady){
             const { func_kind } = router.query;
                     

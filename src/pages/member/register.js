@@ -61,7 +61,7 @@ const Register = () => {
                     name
                 });
 
-                const { member, portfolio, assets } = socialLoginRes.data;
+                const { member } = socialLoginRes.data;
         
                 dispatch(setMemberState({
                     id: member.member_id,
@@ -70,7 +70,8 @@ const Register = () => {
                     profile: member.profile_url,
                     tel: member.tel,
                     authRole: member.auth_role,
-                    socialLoginType: member.social_login_type
+                    socialLoginType: member.social_login_type,
+                    token: member.token
                 }));
                 replace("/");
                 

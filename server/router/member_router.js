@@ -127,7 +127,8 @@ router.get("/auth", async (req, res) => {
                 name : resultByToken.name,
                 prorfileUrl : resultByToken.profileUrl,
                 authRole : resultByToken.authRole,
-                socialLoginType : resultByToken.socialLoginType, 
+                socialLoginType : resultByToken.socialLoginType,
+                token: req.cookies.x_auth.accessToken
             },
             portfolio,
             assets,
@@ -306,13 +307,14 @@ router.get("/social-login/auth/:socialLoginType/:id", async (req, res) => {
     if(findMember !== undefined){
         res.status(HttpStatusCode.Ok).json({
             member: {
-                id : findMember[0]["member_id"],
-                email : findMember[0]["email"],
-                tel : findMember[0]["tel"], 
-                name : findMember[0]["name"],
-                prorfileUrl : findMember[0]["profile_url"],
-                authRole : findMember[0]["auth_role"],
-                socialLoginType : findMember[0]["social_login_type"], 
+                id : findMember[0].member_id,
+                email : findMember[0].email,
+                tel : findMember[0].tel, 
+                name : findMember[0].name,
+                prorfileUrl : findMember[0].profile_url,
+                authRole : findMember[0].auth_role,
+                socialLoginType : findMember[0].social_login_type, 
+                token: findMember[0].token
             },
             portfolio,
             assets,

@@ -5,6 +5,8 @@ const bundleAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
 
+
+
 const nextConfig = {
   reactStrictMode: false,
   compress: true,

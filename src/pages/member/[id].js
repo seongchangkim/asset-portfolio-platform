@@ -3,13 +3,17 @@ import { useRouter } from "next/router";
 import axios from "axios";
 
 // firebase storage
-import { deleteObject, getDownloadURL, listAll, ref, uploadBytes, uploadString } from 'firebase/storage';
+import { deleteObject, getDownloadURL, listAll, ref, uploadBytes } from 'firebase/storage';
 import { fStorage } from "@/global/firebase";
 
 // dynamic import(next.js 코드 분할 작업)
 import dynamic from "next/dynamic";
 // next/legacy/image 적용
 import Image from "next/legacy/image";
+
+import { useSelector } from "react-redux";
+import { getMemberState } from "@/store/member/member_slice";
+import checkMemberStore from "@/global/check_member_store";
 
 // DashBoard 컴포넌트 dynamic import하도록 설정
 const DashBoard = dynamic(() => import("@/dashboard"), {
@@ -34,7 +38,7 @@ const MemberDetailBtn = dynamic(() => import("@/components/member/member_detail_
 const Member = () => {
 
     const router = useRouter();
-    const { push } = router;
+    const { push, replace } = router;
     
     const [memberId, setMemberId] = useState(0);
     // 이름
@@ -51,6 +55,8 @@ const Member = () => {
     const [email, setEmail] = useState("");
     // 소셜 로그인
     const [socialLoginType, setSocialLoginType] = useState("");
+
+    const loginMember = useSelector(getMemberState);
 
     const getMemberInfo = async () => {
         if(router.isReady){
@@ -81,7 +87,6 @@ const Member = () => {
         return Object.keys(obj).length === 0 && obj.constructor === Object;
     }
 
-    
     // 이미지 프로필 사진 변경
     const onChangeProfileImg = (event) => {
         const file = event.target.files || event.dataTransfer.files;
@@ -165,6 +170,11 @@ const Member = () => {
     }
 
     useEffect(() => {
+        checkMemberStore({
+            member: loginMember, 
+            replace,
+            authPageCategory: "관리자"
+        });
         getMemberInfo()
     }, [router.isReady]);
 

@@ -4,6 +4,10 @@ import axios from "axios";
 import dayjs from "dayjs";
 import Image from "next/legacy/image";
 import dynamic from "next/dynamic";
+import checkMemberStore from "@/global/check_member_store";
+import { useSelector } from "react-redux";
+import { getMemberState } from "@/store/member/member_slice";
+import { useRouter } from "next/router";
 
 // DashBoard 컴포넌트를 dynamic import하도록 설정.
 const DashBoard = dynamic(() => import("../dashboard"), {
@@ -14,6 +18,7 @@ const DashBoard = dynamic(() => import("../dashboard"), {
 const getMemberListUrl = "/api/admin/members" 
 
 const Members = () => {
+    // 검색 카테고리
     const searchCategories = {
         이메일 : "email",
         이름 : "name",
@@ -28,8 +33,16 @@ const Members = () => {
     const [ selectSearchCategory, setSelectSearchCategory] = useState("");
     const [ keyword, setKeyword ] = useState("");
     const [ toggle, setToggle] = useState(false);
+    const getMember = useSelector(getMemberState);
+    const router = useRouter();
+    const { replace } = router;
 
     useEffect(() => {
+        checkMemberStore({
+            member: getMember, 
+            replace, 
+            authPageCategory: "관리자"
+        });
         callMemberListAPI(getMemberListUrl);
     }, []);
 

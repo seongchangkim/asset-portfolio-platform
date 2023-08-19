@@ -17,6 +17,8 @@ import dynamic from "next/dynamic";
 // next/legacy/image 적용
 import Image from "next/legacy/image";
 
+import checkMemberStore from "@/global/check_member_store";
+
 // DashBoard 컴포넌트 dynamic import하도록 설정
 const DashBoard = dynamic(() => import("@/dashboard"), {
     ssr: false
@@ -35,7 +37,7 @@ const MemberDetailBtn = dynamic(() => import("@/components/member/member_detail_
 const Member = () => {
 
     const router = useRouter();
-    const { push } = router;
+    const { push, replace } = router;
     
     // Member 저장소를 가져옴.
     const getMember = useSelector(getMemberState);
@@ -57,13 +59,20 @@ const Member = () => {
             setMemberId(id);
             
             const res = await axios.get(`/api/member/${id}`); 
+
+            const { name, tel, profile_url, token } = res.data.result;
+
+            if(token !== getMember.token){
+                alert("잘못된 접근입니다.");
+                router.back();
+            }
             
             // 회원 이름
-            setName(res.data.result.name);
+            setName(name);
             // 회원 전화번호
-            setTel(res.data.result.tel);
+            setTel(tel);
             // 회원 프로필 사진
-            setProfileUrl(res.data.result.profile_url);
+            setProfileUrl(profile_url);
         }
 
         return () => {};
@@ -165,6 +174,11 @@ const Member = () => {
     }
 
     useEffect(() => {
+        checkMemberStore({ 
+            member: getMember, 
+            replace, 
+            authPageCategory: "회원"
+        });
         getProfileInfo()
     }, [router.isReady]);
 
