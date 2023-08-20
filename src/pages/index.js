@@ -8,8 +8,6 @@ import dynamic from 'next/dynamic';
 
 // 서버 root url
 import BASE_URL from '@/global/base_url';
-// 로딩 페이지 컴포넌트 가져오기
-// import Loading from '@/components/util/loading';
 
 // redux
 import { setMemberState } from "@/store/member/member_slice";
@@ -49,10 +47,8 @@ export default function Home() {
   },[]);
 
   return (  
-    // <Suspense fallback={<Loading content="로딩 중입니다.."/>}>
-      <DashBoard>
-        <AssetPortfolioDetail />
-      </DashBoard>
-    // </Suspense>
+    <DashBoard>
+      <AssetPortfolioDetail />
+    </DashBoard>
   );
 }

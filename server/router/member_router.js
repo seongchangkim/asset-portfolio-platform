@@ -95,8 +95,6 @@ router.post("/login", async (req, res) => {
 
 // 로그인 인증
 router.get("/auth", async (req, res) => {
-    console.log("auth!!!!");
-    console.log(req.cookies.x_auth);
     // 쿠키에서 토큰이 없으면 false로 반환함
     if(typeof req.cookies.x_auth === "undefined"){
         console.log("no cookie");

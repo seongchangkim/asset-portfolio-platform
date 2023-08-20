@@ -1,4 +1,5 @@
 import { getAssetPortfolioState, setAssetPortfolioState } from "@/store/asset_portfolio/asset_portfolio_slice";
+import { getMemberState } from "@/store/member/member_slice";
 import { useSelector, useDispatch } from "react-redux";
 // lazy loading(next.js 코드 분할 작업)
 import { useEffect, useState, lazy, Suspense } from "react";
@@ -27,6 +28,10 @@ const AssetPortfolioDetail = () => {
     // 자산 포트폴리오 상태 저장소 가져오기
     const getAssetPortfolio = useSelector(getAssetPortfolioState);
     const { portfolio, assets } = getAssetPortfolio;
+    
+    // 회원 상태 저장소 가져오기
+    const getMember = useSelector(getMemberState);
+    const { name } = getMember;
     const dispatch = useDispatch();
 
     // 자산 포트폴리오 선형 그래프를 위한 변수 
@@ -151,7 +156,7 @@ const AssetPortfolioDetail = () => {
     ) : ( 
             Object.keys(getAssetPortfolio).length === 0 || getAssetPortfolio.portfolio === undefined ? (
                 <Suspense fallback={<Loading content="자산 포트폴리오 정보를 가져오는 중입니다.."/>}>
-                    <EmptyAssetPortfolio />
+                    <EmptyAssetPortfolio memberName={name}/>
                 </Suspense>
             ) : (
                 <div className="grid grid-cols-4 grid-rows-8">
