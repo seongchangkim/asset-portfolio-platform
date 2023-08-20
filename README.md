@@ -1,38 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# asset-portfolio-platform
 
-## Getting Started
+## asset-portfolio-platform
+자산 포트폴리오 플랫폼 서버와 웹 클라이언트를 구현한 웹 프로젝트이며 로그인, 로그아웃, 소셜 로그인, 회원가입, 프로필 상세보기, 프로필 수정 및 회원 탈퇴를 통해 회원이 웹 서비스를 이용할 수 있도록 구현했고 만약 관리자 회원 권한으로 로그인하면 회원 목록(페이지 처리 및 검색 기능), 회원 상세보기 그리고 회원 수정/삭제 기능을 통해 회원 관리할 수 있도록 구현했습니다. 마지막으로 웹 사이트를 통해 자산 포트폴리오에 관한 CRUD 기능을 통해 해당 회원의 자산 포트폴리오를  관리할 수 있도록 구현했습니다.  
 
-First, run the development server:
+<br>
+● 제작기간 : 2023.07.09~2023.08.19[2023.07.14~2023.07.18 및 2023.08.01(6일) 제외](36일)(1인 프로젝트)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+### 개발 환경
+> 1. Next.js 13.4.9<br/>
+> 2. JavaScript(ES6)<br/>
+> 3. Node.js 18.12.1<br/>
+> 4. Express.js 4.18.2<br/>
+> 5. React.js 18.2.0<br/>
+> 6. Tailwindcss 3.3.2<br/>
+> 7. AWS EC2(ubuntu)<br/>
+> 8. MySQL 8.0.33
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### IDE
+> 1. Visual Studio Code<br/>
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## API 소개
+### 1. Member API
+|Url|Http Method|기능|Parameter
+|:---|:---:|:---:|:---:|
+|/api/member|POST|회원가입|○email(String)<br/> ○password(String)<br/> ○name(String)<br/> ○tel(String)<br/> ○social_login_type(String)
+|/api/member/login|POST|로그인|○email(String)<br/> ○password(String)
+|/api/member/auth|GET|로그인 여부|-
+|/api/member/logout|POST|로그아웃|○id(Web: Number)
+|/api/member/social-login/:socialLoginType|POST|소셜 로그인|○authCode(String)<br/> <b>또는</b><br/> ○token(String)<br/> ○email(String)<br/> ○name(String)<br/> 
+|/social-login/auth/:socialLoginType/:id|GET|소셜 로그인 체크 여부|-
+|/api/member/:id|GET|프로필 상세보기|-
+|/api/member/:id|PATCH|프로필 수정|○profileUrl(String)<br/> ○name(String)<br/> ○tel(String)<br/>
+<br/>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### 2. Admin API
+|Url|Http Method|기능|Parameter
+|:---|:---:|:---:|:---:|
+|/api/admin/members|GET|회원 목록(페이징 처리 및 검색)|○category(String)[OPTION]<br/> ○keyword(String)[OPTION]<br/> ○page(number)<br/>
+|/api/admin/member/:id|GET|프로필 상세보기|-
+|/api/admin/member/:id|PATCH|프로필 수정|○profileUrl(String)<br/> ○email(String)<br/> ○name(String)<br/> ○tel(String)<br/> ○role(String)<br/>
+<br/>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### 3. Expense API
+|Url|Http Method|기능|Parameter
+|:---|:---:|:---:|:---:|
+|/api/expense|POST|가계부 생성| ○userId(number)<br/> ○content(String)<br/> ○expense(String)<br/> ○date(String)<br/> ○status(String)<br/> ○category(String) 
+|/api/expense/list|POST|날짜에 따른 가계부 목록| ○userId(String)<br/> ○date(String)<br/> ○lastExpenseId(String)
+|/api/expense/{id}|GET|가계부 상세보기|-
+|/api/expense/{id}|PATCH|가계부 수정|○userId(number)<br/> ○content(String)<br/> ○expense(String)<br/> ○date(String)<br/> ○status(String)<br/> ○category(String) 
+|/api/expense/{id}|DELETE|가계부 삭제|-
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+※ 속성이 email이고 데이터 타입이 String이면 email(String)으로 작성했습니다.
 
-## Learn More
+## 테이블 구조
+<img width="920" alt="image" src="https://github.com/seongchangkim/account-book/assets/74657556/799e6723-5fce-4194-9372-4c356592b66d">
 
-To learn more about Next.js, take a look at the following resources:
+## 가계부 회원 관리 웹 페이지
+가계부 회원 관리 웹 페이지 설명을 보려면 아래 링크를 클릭하면 됩니다.
+<br/><br/>
+<a href="https://github.com/seongchangkim/account_book_admin_web">가계부 회원 관리 웹 페이지</a>
+<br/>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 가계부 앱
+가계부 앱 설명을 보려면 아래 링크를 클릭하면 됩니다.
+<br/><br/>
+<a href="https://github.com/seongchangkim/account_book_app">가계부 앱</a>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
