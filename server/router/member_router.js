@@ -276,7 +276,6 @@ const kakaoLoginCommonGetProfile = async (token) => {
 
 // 토큰 가져오기(idToken 포함) 및 프로필 정보 가져오기(카카오 로그인 공통 처리 부분)
 const commonGoogleLogin = async (authCode = "") => {
-
     const getTokenRes = await axios.post(
         'https://oauth2.googleapis.com/token',{
             code: authCode,
