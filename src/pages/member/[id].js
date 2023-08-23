@@ -55,8 +55,11 @@ const Member = () => {
     const [email, setEmail] = useState("");
     // 소셜 로그인
     const [socialLoginType, setSocialLoginType] = useState("");
-
+    
     const loginMember = useSelector(getMemberState);
+
+    // 회원 상세보기/수정/삭제 API 호출하는 URL 
+    const memberDetailCommonUrl = (id) => `/api/admin/member/${id}`;
 
     const getMemberInfo = async () => {
         if(router.isReady){
@@ -64,7 +67,7 @@ const Member = () => {
                 const { id } = router.query;
                 setMemberId(id);
                 
-                const res = await axios.get(`/api/admin/member/${id}`); 
+                const res = await axios.get(memberDetailCommonUrl(id)); 
                 
                 // 회원 이름
                 setName(res.data.result[0].name);
@@ -136,7 +139,7 @@ const Member = () => {
     // 회원 수정 API 호출하여 회원 수정 성공하면 알림창 띄우고 강제 새로고침
     const memberEditingProcess = async (params) => {
         const res = await axios.patch(
-            `/api/admin/member/${memberId}`,
+            memberDetailCommonUrl(memberId),
             params
         );
 
@@ -148,9 +151,7 @@ const Member = () => {
 
     // 회원 삭제
     const onDeleteMember = async () => {
-        const res = await axios.delete(
-            `/api/admin/member/${memberId}`
-        );
+        const res = await axios.delete(memberDetailCommonUrl(memberId));
 
         if(res.data['success']){
             try{

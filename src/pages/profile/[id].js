@@ -52,6 +52,8 @@ const Member = () => {
     const [profileUrl, setProfileUrl] = useState("");
     // file 객체
     const [file, setFile] = useState({});
+    // 프로필 상세보기/수정 API 호출할 Url
+    const profileDetailCommonUrl = (id) => `/api/member/${id}`;
 
     const getProfileInfo = async () => {
         if(router.isReady){
@@ -59,7 +61,7 @@ const Member = () => {
                 const { id } = router.query;
                 setMemberId(id);
                 
-                const res = await axios.get(`/api/member/${id}`); 
+                const res = await axios.get(profileDetailCommonUrl(id)); 
 
                 const { name, tel, profile_url, token } = res.data.result;
 
@@ -131,7 +133,7 @@ const Member = () => {
     // member 저장소가 수정한 정보로 갱신하여 알림창 띄우고 강제 새로고침
     const profileEditingProcess = async (params) => {
         const res = await axios.patch(
-            `/api/member/${memberId}`,
+            profileDetailCommonUrl(memberId),
             params
         );
 

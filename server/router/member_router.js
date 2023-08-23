@@ -45,51 +45,54 @@ router.post("/", async (req, res) => {
 
 // 로그인 
 router.post("/login", async (req, res) => {
-    const findMember = await mysql.baseQuery("login", req.body.email);
-    const { encryptedPassword } = await crypto.cryptoPassword(req.body.password, findMember[0].password_salt);
-    
-    // 이메일이 일치하지 않는 경우
-    if(findMember.length === 0){
-        res.status(HttpStatusCode.Ok).send({
-            "warningMessage": "입력한 이메일이 존재하지 않습니다."
-        });
-    // 비밀번호가 일치하는 경우
-    }else if(findMember[0].password === encryptedPassword){
-        try{
-            
-            const generatedToken = generateToken(findMember[0]);
-            const result = await mysql.baseQuery("updateMemberToken", [generatedToken.accessToken, findMember[0].member_id]);
-            const {portfolio, assets} = await getEntireAssetPortfolioInfo(findMember[0]);
 
-            if(result["changedRows"] === 1){
-                res.cookie("x_auth", generatedToken).status(HttpStatusCode.Ok).json({
-                    success: true,
-                    member: {
-                        id: findMember[0]["member_id"],
-                        email: findMember[0]["email"],
-                        name: findMember[0]["name"],
-                        profileUrl: findMember[0]["profile_url"],
-                        tel: findMember[0]["tel"],
-                        authRole: findMember[0]["auth_role"],
-                        socialLoginType: findMember[0]["social_login_type"],
-                        token: generatedToken.accessToken
-                    },
-                    portfolio,
-                    assets
-                });
-            }else{
-                throw new Error("관리자와 문의하세요.");
-            }
-            
-        }catch(error){
-            res.status(500).send(error);
-        }
+    try{
+        const findMember = await mysql.baseQuery("login", req.body.email);
         
-    // 비밀번호가 일치하지 않는 경우
-    }else{
-        res.status(200).send({
-            "warningMessage": "비밀번호가 일치하지 않습니다."
-        });
+        // 이메일이 일치하지 않는 경우
+        if(findMember.length === 0){
+            res.status(HttpStatusCode.Ok).send({
+                "warningMessage": "입력한 이메일이 존재하지 않습니다."
+            });
+        // 비밀번호가 일치하는 경우
+        }else{
+            const { encryptedPassword } = await crypto.cryptoPassword(req.body.password, findMember[0].password_salt);
+
+            if(findMember[0].password === encryptedPassword){
+            
+                const generatedToken = generateToken(findMember[0]);
+                const result = await mysql.baseQuery("updateMemberToken", [generatedToken.accessToken, findMember[0].member_id]);
+                const {portfolio, assets} = await getEntireAssetPortfolioInfo(findMember[0]);
+    
+                if(result["changedRows"] === 1){
+                    res.cookie("x_auth", generatedToken).status(HttpStatusCode.Ok).json({
+                        success: true,
+                        member: {
+                            id: findMember[0]["member_id"],
+                            email: findMember[0]["email"],
+                            name: findMember[0]["name"],
+                            profileUrl: findMember[0]["profile_url"],
+                            tel: findMember[0]["tel"],
+                            authRole: findMember[0]["auth_role"],
+                            socialLoginType: findMember[0]["social_login_type"],
+                            token: generatedToken.accessToken
+                        },
+                        portfolio,
+                        assets
+                    });
+                }else{
+                    throw new Error("관리자와 문의하세요.");
+                }
+    
+            // 비밀번호가 일치하지 않는 경우
+            }else{
+                res.status(200).send({
+                    "warningMessage": "비밀번호가 일치하지 않습니다."
+                });
+            }
+        }
+    }catch(error){
+        res.status(500).send(error);
     }
 });
 
@@ -151,6 +154,7 @@ router.post("/logout", async (req, res) => {
             throw new Error("관리자와 문의하세요.");
         }
     }catch(error){
+        console.error(error);
         res.status(500).send(error);
     } 
 });
