@@ -49,10 +49,10 @@ const Register = () => {
 
         const res = await axios.post(`${BASE_URL}/api/member`, param);
         
-        const data = res.data;
+        const { success } = res.data;
 
-        if(data["success"]){
-            if(socialLoginKind.length === 0){
+        if(success){
+            if(social_login_type === "NONE"){
                 replace("/member/login")
             }else{
                 const socialLoginRes = await axios.post(`/api/member/social-login/${socialLoginKind}`, {

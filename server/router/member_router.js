@@ -33,13 +33,10 @@ router.post("/", async (req, res) => {
     memberForm["password"] = encryptedPassword;
     memberForm["password_salt"] = salt;
 
-    const result = await mysql.baseQuery("registerMember", memberForm);
-
-    const findMember = await mysql.baseQuery("getMemberById", [result["insertId"]]);
+    await mysql.baseQuery("registerMember", memberForm);
     
     res.status(HttpStatusCode.Created).json({
-        success: true,
-        result : findMember[0]
+        success: true
     });
 });
 
