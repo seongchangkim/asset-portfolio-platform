@@ -52,7 +52,24 @@
 ※ 속성이 email이고 데이터 타입이 String이면 email(String)으로 작성했습니다.
 
 ## 테이블 구조
-<img width="920" alt="image" src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/6eda2fa5-9553-4a3c-b47b-7daddfb9b20c">
+<img width="920" alt="image" src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/6eda2fa5-9553-4a3c-b47b-7daddfb9b20c" />
 
+## 주요 기능 및 페이지
+### 1. 로그인
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/9723c216-2cd8-42f4-b66b-9b07683a5126"></p>
+<p align="center">이메일 또는 비밀번호 불일치 시 로그인</p>
+
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/0a2fae71-6b7d-4750-8a64-63f12c78d86b"></p>
+<p align="center">로그인 성공</p>
+
+<br/>
+- 로그인 페이지에서 이메일과 비밀번호를 입력하여 로그인 API를 POST 방식으로 호출하여 입력한 이메일과 비밀번호 값을 들고 서버에 request해서 작동한 다음에 DB에서 이메일로 일치한 데이터를 조회하고 비밀번호를 암호화하여 DB에서 암호화된 비밀번호가 있는지 조회합니다. 만약 DB에서 이메일과 비밀번호가 둘 다 일치한 DB가 있으면 로그인 성공되어 홈 화면으로 이동합니다. 그렇지 않으면 비밀번호 또는 이메일이 일치하지 않는 알림창을 띄우도록 설정합니다.
+
+### 2. 회원가입
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/96073454-269b-4db7-96d0-3a5ef1953989" /></p>
+<p align="center">회원가입 성공</p>
+
+<br/>
+- 로그인 페이지에서 회원가입 부분을 누르면 회원가입 페이지가 이동되는데 회원정보를 입력하여 회원가입 버튼을 클릭하면 회원가입 API를 POST 방식으로 호출하여 입력한 회원정보를 들고 서버에 request한 뒤에 해당 회원정보를 바탕으로 회원 데이터가 추가되고 서버에서 response값을 받아서 회원가입이 성공하면 로그인 페이지로 이동합니다.
 
 
