@@ -44,7 +44,7 @@ router.post("/", async (req, res) => {
 router.post("/login", async (req, res) => {
 
     try{
-        const findMember = await mysql.baseQuery("login", req.body.email);
+        const findMember = await mysql.baseQuery("login", [req.body.email, 'NONE']);
         
         // 이메일이 일치하지 않는 경우
         if(findMember.length === 0){
@@ -56,9 +56,8 @@ router.post("/login", async (req, res) => {
             const { encryptedPassword } = await crypto.cryptoPassword(req.body.password, findMember[0].password_salt);
 
             if(findMember[0].password === encryptedPassword){
-            
                 const generatedToken = generateToken(findMember[0]);
-                const result = await mysql.baseQuery("updateMemberToken", [generatedToken.accessToken, findMember[0].member_id]);
+                const result = await mysql.baseQuery("updateMemberToken", [generatedToken.accessToken, findMember[0].member_id, 'NONE']);
                 const {portfolio, assets} = await getEntireAssetPortfolioInfo(findMember[0]);
     
                 if(result["changedRows"] === 1){
@@ -234,11 +233,11 @@ router.post("/social-login/:socialLoginType", async (req, res) => {
     // 소셜 로그인 계정이 있으면 
     }else{
         // 로그인
-        const loginResult = await mysql.baseQuery("login", [emailParam]);
-        // 토큰 갱신
-        const updateTokenResult = await mysql.baseQuery("updateMemberToken", [accessToken, findMemberBySocialLogin[0]["member_id"]]);
+        const loginResult = await mysql.baseQuery("login", [emailParam, req.params.socialLoginType]);
         // 소셜 로그인 유형 갱신
         const updateSocialLoginResult = await mysql.baseQuery("socialLogin", [req.params.socialLoginType, findMemberBySocialLogin[0]["member_id"]]);
+        // 토큰 갱신
+        const updateTokenResult = await mysql.baseQuery("updateMemberToken", [accessToken, findMemberBySocialLogin[0]["member_id"], req.params.socialLoginType]);
 
         let success = false;
 

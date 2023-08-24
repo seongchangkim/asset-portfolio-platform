@@ -4,9 +4,9 @@ const memberSql = {
     // 회원 id에 다른 조회
     "getMemberById" : "SELECT * FROM member WHERE member_id = ?",
     // 로그인
-    "login": "SELECT * FROM member WHERE email = ?",
+    "login": "SELECT * FROM member WHERE email = ? AND social_login_type = ?",
     // 토큰 수정(로그인)
-    "updateMemberToken" : "UPDATE member SET token = ? WHERE member_id = ?",
+    "updateMemberToken" : "UPDATE member SET token = ? WHERE member_id = ? AND social_login_type = ?",
     // 토큰에 의한 회원 조회(로그인 인증)
     "findMemberByToken" : "SELECT * FROM member WHERE token = ?",
     // 로그아웃(빈 토큰 수정)
