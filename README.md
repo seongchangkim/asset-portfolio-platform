@@ -70,12 +70,36 @@
 <p align="center">회원가입 성공</p>
 
 <br/>
-- 로그인 페이지에서 회원가입 부분을 누르면 회원가입 페이지가 이동되는데 회원정보를 입력하여 회원가입 버튼을 클릭하면 회원가입 API를 POST 방식으로 호출하여 입력한 회원정보를 들고 서버에 request한 뒤에 해당 회원정보를 바탕으로 회원 데이터가 추가되고 서버에서 response값을 받아서 회원가입이 성공하면 로그인 페이지로 이동합니다.
+- 로그인 페이지에서 회원가입 부분을 누르면 회원가입 페이지가 이동되는데 회원정보를 입력하여 회원가입 버튼을 클릭하면 회원가입 API를 POST 방식으로 호출하여 입력한 회원정보를 들고 서버에 request한 뒤에 해당 회원정보를 바탕으로 회원 데이터가 추가되고 서버에서 response 값을 받아서 회원가입이 성공하면 로그인 페이지로 이동합니다.
 
 ### 3. 로그아웃
 <p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/bc0d7742-0bc8-45f0-a784-4193b70f0e32" /></p>
 
 <br/>
 - nav 쪽에 프로필 이미지를 클릭한 뒤에 로그아웃 부분에 클릭하면 로그아웃 API를 POST 방식으로 호출하여 사용자 id를 들고 request한 다음에 DB안에 해당 회원 id를 찾아서 token를 빈 문자열으로 수정한 뒤에 x_auth 토큰에 대한 쿠키를 삭제하면서 클라이언트에게 response 값을 보냅니다. 만약 로그아웃이 성공하면 마지막으로 회원 상태 저장소를 빈 객체로 초기화시키고 로그인 페이지로 이동합니다.
+
+### 4. 프로필 상세보기/수정 및 회원 탈퇴
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/a9629b32-7ddf-4ab2-8c57-cf3114088fb3"></p>
+<p align="center">프로필 상세보기</p>
+
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/afe079aa-6f2f-4f16-881d-8c2c0531374b"></p>
+<p align="center">프로필 상세보기 - 잘못된 접근</p>
+
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/bd448aaf-a65e-4777-930b-55f8fc2443a6"></p>
+<p align="center">프로필 수정(프로필 이미지 수정 없이)</p>
+
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/fe11e100-c1f4-46e2-8469-ceac2a14a1c3"></p>
+<p align="center">프로필 수정(프로필 이미지 수정 포함)</p>
+
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/8facca38-71ec-4eea-a652-18a90aad84b3"></p>
+<p align="center">회원 탈퇴</p>
+
+1). 프로필 상세보기 : nav 쪽에 프로필 이미지를 클릭한 뒤에 My 프로필을 클릭하면 My 프로필 페이지에 이동하는 동안 프로필 상세보기 API를 호출하여 request해서 작동한 뒤 그리고 DB에 해당 회원을 조회한 다음에 response값으로 받아서 회원 상태 저장소 안에 있는 token 값과 response 값 안에 있는 token 값을 비교하여 일치하면 My 프로필 페이지에 렌더링하고 그렇지 않으면 잘못된 접근 알림창을 띄우고 확인 버튼을 누르면 알림창이 없어지면서 이전 페이지로 이동합니다.</br></br>
+2). 프로필 수정 : My 프로필에서 수정하고자 이름, 이메일 또는 프로필 이미지를 수정하여 수정 버튼을 누르면 프로필 수정 API을 호출하여 수정하고자 회원 정보 값을 들고 request해서 작동한 뒤 DB에서 해당 회원의 id으로 조회하여 조회된 회원 데이터에 수정되고 last_modified_at는 해당 API를 호출했던 시점으로 수정됨. 그리고 프로필 수정이 성공하면 프로필 수정 알림창을 띄우고 확인 버튼을 누르면 알림창이 없어지면서 리렌더링합니다.</br></br>
+3). 회원 탈퇴 : My 프로필에서 회원 탈퇴 버튼을 클릭하면 회원 삭제 API를 호출하여 request해서 작동한 뒤 DB에 해당 회원 데이터를 조회하여 조회된 회원 데이터는 삭제되어 회원 탈퇴가 성공하면 회원 탈퇴 알림창이 띄우고 확인 버튼을 누르면 알림창이 없어지면서 로그인 페이지로 이동합니다.
+
+### 5. 소셜 로그인(카카오, 구글) 
+
+
 
 
