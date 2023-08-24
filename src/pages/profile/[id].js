@@ -144,7 +144,8 @@ const Member = () => {
                 name: params.name,
                 profile: params.profileUrl,
                 tel: params.tel,
-                authRole : getMember.authRole
+                authRole : getMember.authRole,
+                token: getMember.token
             }));
             alert("해당 회원 정보가 수정되었습니다.");
             window.location.reload();

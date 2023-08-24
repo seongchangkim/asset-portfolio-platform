@@ -84,7 +84,6 @@ const Member = () => {
             }catch(e){
                 console.log(e);
             }
-            
         }
 
         return () => {};
