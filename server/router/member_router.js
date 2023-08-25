@@ -156,9 +156,9 @@ router.post("/logout", async (req, res) => {
 });
 
 // 프로필 상세보기
-router.get("/:id", async (req, res) => {
-    const result = await mysql.baseQuery("getProfileInfo", [req.params.id]);
-
+router.post("/:id", async (req, res) => {
+    const result = await mysql.baseQuery("getProfileInfo", [req.params.id, req.body.socialLoginKind]);
+    
     res.status(HttpStatusCode.Ok).json({
         result: result[0]
     });
@@ -249,7 +249,16 @@ router.post("/social-login/:socialLoginType", async (req, res) => {
 
         res.cookie("x_auth", accessToken).status(HttpStatusCode.Ok).json({
             success,
-            member : loginResult[0],
+            member: {
+                member_id: loginResult[0]["member_id"],
+                email: loginResult[0]["email"],
+                name: loginResult[0]["name"],
+                profile_url: loginResult[0]["profile_url"],
+                tel: loginResult[0]["tel"],
+                auth_role: loginResult[0]["auth_role"],
+                social_login_type: loginResult[0]["social_login_type"],
+                token: accessToken
+            },
             portfolio,
             assets
         });

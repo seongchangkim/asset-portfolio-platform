@@ -61,7 +61,9 @@ const Member = () => {
                 const { id } = router.query;
                 setMemberId(id);
                 
-                const res = await axios.get(profileDetailCommonUrl(id)); 
+                const res = await axios.post(profileDetailCommonUrl(id), {
+                    socialLoginKind : getMember.socialLoginType
+                }); 
 
                 const { name, tel, profile_url, token } = res.data.result;
 
@@ -144,6 +146,7 @@ const Member = () => {
                 name: params.name,
                 profile: params.profileUrl,
                 tel: params.tel,
+                socialLoginType: getMember.socialLoginType,
                 authRole : getMember.authRole,
                 token: getMember.token
             }));
