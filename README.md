@@ -1,4 +1,4 @@
-# asset-portfolio-platform
+![kakao-login-not-exist-member](https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/4b387c04-a817-47dd-8d16-6a358c16c9f1)# asset-portfolio-platform
 
 ## asset-portfolio-platform
 자산 포트폴리오 플랫폼 서버와 웹 클라이언트를 구현한 웹 프로젝트이며 로그인, 로그아웃, 소셜 로그인, 회원가입, 프로필 상세보기, 프로필 수정 및 회원 탈퇴를 통해 회원이 웹 서비스를 이용할 수 있도록 구현했고 만약 관리자 회원 권한으로 로그인하면 회원 목록(페이지 처리 및 검색 기능), 회원 상세보기 그리고 회원 수정/삭제 기능을 통해 회원 관리할 수 있도록 구현했습니다. 마지막으로 웹 사이트를 통해 자산 포트폴리오에 관한 CRUD 기능을 통해 해당 회원의 자산 포트폴리오를  관리할 수 있도록 구현했습니다.  
@@ -29,7 +29,7 @@
 |/api/member/logout|POST|로그아웃|○id(Web: Number)
 |/api/member/social-login/:socialLoginType|POST|소셜 로그인|○authCode(String)<br/> <b>또는</b><br/> ○token(String)<br/> ○email(String)<br/> ○name(String)<br/> 
 |/social-login/auth/:socialLoginType/:id|GET|소셜 로그인 체크 여부|-
-|/api/member/:id|GET|프로필 상세보기|-
+|/api/member/:id|POST|프로필 상세보기|-
 |/api/member/:id|PATCH|프로필 수정|○profileUrl(String)<br/> ○name(String)<br/> ○tel(String)<br/>
 <br/>
 
@@ -99,7 +99,25 @@
 3). 회원 탈퇴 : My 프로필에서 회원 탈퇴 버튼을 클릭하면 회원 삭제 API를 호출하여 request해서 작동한 뒤 DB에 해당 회원 데이터를 조회하여 조회된 회원 데이터는 삭제되어 회원 탈퇴가 성공하면 회원 탈퇴 알림창이 띄우고 확인 버튼을 누르면 알림창이 없어지면서 로그인 페이지로 이동합니다.
 
 ### 5. 소셜 로그인(카카오, 구글) 
+1). 카카오 로그인
+<p align="center"><img src="[https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/38a48304-d0c9-4cdb-9519-12e33777a470" /></p>
+<p align="center">연동 계정이 존재하지 않을 때 카카오 로그인</p>
 
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/4283a763-e9ff-42a6-9d75-e6d7bc7180a9" /></p>
+<p align="center">연동 계정이 존재할 때 카카오 로그인</p>
 
+- 로그인 페이지에서 카카오 로그인을 누르면 소셜 로그인 로딩 페이지로 리다이렉트하면서 소셜 로그인 API를 request하여 카카오 토큰 가져오기 API(카카오 외부 API)를 호출한 뒤 카카오 토큰을 얻어서 카카오 프로필 정보 가져오기 API(카카오 외부 API)를 호출하여 카카오 프로필 정보를 가져와서 서버에서 소셜 로그인 계정 존재 여부 확인한 다음에 DB에서 소셜 로그인 회원 계정이 존재하는지 확인합니다. 해당 카카오 계정이 존재하면 로그인하여 홈 화면으로 이동하고 없으면 카카오 프로필 정보를 들고 회원가입 페이지로 이동합니다. 회원가입 페이지에서 회원 정보를 입력하여 회원가입 버튼을 클릭하면 입력한 회원정보를 들고 request해서 DB에 저장되고 서버에서 response 값을 받아서 회원가입 성공하므로 해당 카카오 계정으로 로그인하여 홈 화면으로 이동합니다.
+<br/><br/>
+
+2). 구글 로그인
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/a0d5db4b-1c5d-40b6-99b3-0deaacf42c63" /></p>
+<p align="center">연동 계정이 존재하지 않을 때 구글 로그인</p>
+
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/dbaadfc0-4ce8-4375-9650-efc545ecad91" /></p>
+<p align="center">연동 계정이 존재할 때 구글 로그인</p>
+
+- 로그인 페이지에서 구글 로그인을 누르면 소셜 로그인 로딩 페이지로 이동하면서 소셜 로그인 API를 request하여 구글 토큰 가져오기 API(구글 외부 API)를 호출한 뒤 구글 토큰을 얻어서 구글 프로필 정보 가져오기 API(구글 외부 API)를 호출하여 구글 프로필 정보를 가져와서 서버에서 소셜 로그인 계정 존재 여부 확인한 다음에 DB에서 소셜 로그인 회원 계정이 존재하는지 확인합니다. 해당 구글 계정이 존재하면 로그인하여 홈 화면으로 이동하고 없으면 구글  프로필 정보를 들고 회원가입 페이지로 이동합니다. 회원가입 페이지에서 회원 정보를 입력하여 회원가입 버튼을 클릭하면 입력한 회원정보를 들고 request해서 DB에 저장되고 서버에서 response 값을 받아서 회원가입 성공하므로 해당 구글 계정으로 로그인하여 홈 화면으로 이동합니다.
+
+### 6. 회원 인증 
 
 
