@@ -65,13 +65,16 @@ const Member = () => {
                     socialLoginKind : getMember.socialLoginType
                 }); 
 
-                const { name, tel, profile_url, token } = res.data.result;
 
-                if(token !== getMember.token){
+                console.log(`result : ${res.data.result}`);
+
+                if(res.data.result === undefined){
                     alert("잘못된 접근입니다.");
                     router.back();
                 }
-                
+
+                const { name, tel, profile_url } = res.data.result;
+
                 // 회원 이름
                 setName(name);
                 // 회원 전화번호
