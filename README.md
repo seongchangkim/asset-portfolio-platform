@@ -160,5 +160,22 @@
 3). 회원 삭제 : 회원 상세보기 페이지에서 삭제를 누르면 회원 탈퇴 API를 호출함을 통해 request를 받고 DB에서 해당 회원 id로 조회하여 해당 회원과 일치하면 조회된 회원 데이터를 삭제되어 회원 삭제 처리가 성공하면 회원 삭제 알림창을 띄우고 회원 삭제 알림창에서 확인 버튼을 클릭하면 이전 페이지로 이동됩니다.
 
 ### 9. 회원 권한에 따라 허용된 페이지, 로그인이 필요한 페이지 및 다른 회원 프로필 페이지 접근 금지
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/bbf21f57-7827-4287-9e70-f04010d610e9" /></p>
+<p align="center">회원 권한에 따라 허용된 페이지</p>
+
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/d5718b90-64c5-4d14-8626-ee6129e9e442" /></p>
+<p align="center">로그인이 필요한 페이지</p>
+
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/1e2096f7-d1e7-45fe-bab4-3e41c3d1a13e" /></p>
+<p align="center">다른 회원 프로필 페이지 접근 금지</p>
+
+<br/>
+1). 회원 권한에 따라 허용된 페이지 : 로그인되지 않는 상태 또는 회원 권한으로 로그인한 상태로 관리자 전용 페이지로 접근하면 관리자 전용 페이지 알림창을 띄우고 확인 버튼을 누르면 로그인 페이지로 리다이렉트합니다. <br /><br />
+2). 로그인이 필요한 페이지 : 로그인되지 않는 상태로 회원 전용 페이지로 접근하면 로그인 페이지로 리다이렉트합니다. <br /><br />
+3). 다른 회원 프로필 페이지 접근 금지 : 다른 회원의 프로필 페이지에 접근하면 잘못된 접근 알림창이 띄우고 확인 버튼을 누르면 이전 페이지로 이동합니다.
+
+### 10. 자산 포트폴리오 생성/상세보기/수정/삭제
+
+
 
 
