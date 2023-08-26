@@ -1,4 +1,4 @@
-![kakao-login-not-exist-member](https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/4b387c04-a817-47dd-8d16-6a358c16c9f1)# asset-portfolio-platform
+# asset-portfolio-platform
 
 ## asset-portfolio-platform
 자산 포트폴리오 플랫폼 서버와 웹 클라이언트를 구현한 웹 프로젝트이며 로그인, 로그아웃, 소셜 로그인, 회원가입, 프로필 상세보기, 프로필 수정 및 회원 탈퇴를 통해 회원이 웹 서비스를 이용할 수 있도록 구현했고 만약 관리자 회원 권한으로 로그인하면 회원 목록(페이지 처리 및 검색 기능), 회원 상세보기 그리고 회원 수정/삭제 기능을 통해 회원 관리할 수 있도록 구현했습니다. 마지막으로 웹 사이트를 통해 자산 포트폴리오에 관한 CRUD 기능을 통해 해당 회원의 자산 포트폴리오를  관리할 수 있도록 구현했습니다.  
@@ -100,7 +100,7 @@
 
 ### 5. 소셜 로그인(카카오, 구글) 
 1). 카카오 로그인
-<p align="center"><img src="[https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/38a48304-d0c9-4cdb-9519-12e33777a470" /></p>
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/38a48304-d0c9-4cdb-9519-12e33777a470" /></p>
 <p align="center">연동 계정이 존재하지 않을 때 카카오 로그인</p>
 
 <p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/4283a763-e9ff-42a6-9d75-e6d7bc7180a9" /></p>
@@ -118,6 +118,29 @@
 
 - 로그인 페이지에서 구글 로그인을 누르면 소셜 로그인 로딩 페이지로 이동하면서 소셜 로그인 API를 request하여 구글 토큰 가져오기 API(구글 외부 API)를 호출한 뒤 구글 토큰을 얻어서 구글 프로필 정보 가져오기 API(구글 외부 API)를 호출하여 구글 프로필 정보를 가져와서 서버에서 소셜 로그인 계정 존재 여부 확인한 다음에 DB에서 소셜 로그인 회원 계정이 존재하는지 확인합니다. 해당 구글 계정이 존재하면 로그인하여 홈 화면으로 이동하고 없으면 구글  프로필 정보를 들고 회원가입 페이지로 이동합니다. 회원가입 페이지에서 회원 정보를 입력하여 회원가입 버튼을 클릭하면 입력한 회원정보를 들고 request해서 DB에 저장되고 서버에서 response 값을 받아서 회원가입 성공하므로 해당 구글 계정으로 로그인하여 홈 화면으로 이동합니다.
 
-### 6. 회원 인증 
+### 6. 로그인 체크
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/4c595da2-8451-4c19-8d52-45cec1e19b7c" /></p>
+<p align="center">로그인된 상태로 로그인 체크</p>
+
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/1250271e-8136-4cca-85fe-c570731458ab" /></p>
+<p align="center">로그인되지 않는 상태로 로그인 체크</p>
+
+로그인 URL를 입력하여 들어가면 로그인 체크 API를 호출하게 되는데 x_auth에 대한 쿠키를 존재하는지 확인하고 존재하면 x_auth 안에 있는 토큰을 가져와서 그 토큰이 유효하는지 체크한 뒤에 유효하면 회원 정보 및 자산 포트폴리오 정보를 담긴 response 값을 클라이언트에 보내고 클라이언트는 그것을 받는 다음에 회원 상태 저장소 및 자산 포트폴리오 상태 저장소를 저장하여 홈 화면으로 이동합니다. 유효하지 않으면 회원 상태 저장소 및 자산 포트폴리오 상태 저장소를 빈 객체로 저장하여 로그인 페이지로 이동합니다. 그리고 소셜 로그인되는 경우에는 소셜 로그인 체크 API를 호출하여 회원 및 자산 포트폴리오 데이터를 조회하여 로그인 체크와 마찬가지로 그 값들을 response 값에 담아서 클라이언트는 그것을 받는 다음에 회원 상태 저장소 및 자산 포트폴리오 상태 저장소를 저장하여 홈 화면으로 이동합니다.
+
+### 7. 회원 목록
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/0708b8d7-f030-45f6-917f-b227c9bd90c4" /></p>
+<p align="center">회원 목록</p>
+
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/5ae91aff-bdee-47db-b565-67c2cdf7a7a9" /></p>
+<p align="center">페이징 처리</p>
+
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/86bfd75d-6d8c-459d-a378-21e0b821c5b9" /></p>
+<p align="center">검색 및 페이지 처리</p>
+
+1). 회원 목록 : 홈 화면에서 회원 목록 페이지 들어가는 동안에 회원 목록 api를 호출하여 서버로부터 response 값을 받아서 페이지 처리에 필요한 값이나 회원 목록 데이터를 받아서 회원 목록 페이지에 렌더링합니다.<br /><br />
+2). 페이지 처리 : 맨 밑에 페이지 처리 관련 UI가 있는데 회원 목록 개수에 따라 페이지 수를 렌더링했습니다. 그중에서 <(이전 페이지) 누르면 이전 페이지로 이동하면서 이전 페이지에 대한 response 값을 받으면서 회원 목록 페이지를 리렌더링을 하고 >(다음 페이지)로 누르면 다음 페이지에 대한 response 값을 받으면서 회원 목록 페이지를 리렌더링을 합니다. 그리고 해당 페이지를 누르면 해당 페이지에 대한 response 값을 받으면서 회원 목록 페이지를 리렌더링을 합니다. 그리고 처음 페이지로 이동하면 이전 페이지 아이콘이 사라지고 맨 마지막 페이지로 이동하면 다음 페이지 아이콘이 사라지도록 설정했습니다.<br /><br />
+3). 검색 기능 : 맨 오른쪽에 검색 UI가 있는데 검색 카테고리를 고르고 검색어를 입력하면 회원 목록 api를 호출하여 그 검색 카테고리에 대한 데이터를 검색어와 비슷한 단어를 조회하는 다음에 웹 클라이언트에 reponse 값으로 페이지 처리에 필요한 값이나 회원 목록 데이터를 받아서 회원 목록 페이지에 리렌더링합니다.
+
+### 8. 회원 상세보기/수정/삭제
 
 
