@@ -68,3 +68,5 @@ const Home = () => {
     </DashBoard>
   );
 }
+
+export default Home;
