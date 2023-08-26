@@ -82,24 +82,24 @@ router.post("/login", async (req, res) => {
     
             // 비밀번호가 일치하지 않는 경우
             }else{
-                res.status(200).send({
+                res.status(HttpStatusCode.Ok).send({
                     "warningMessage": "비밀번호가 일치하지 않습니다."
                 });
             }
         }
     }catch(error){
-        res.status(500).send(error);
+        res.status(HttpStatusCode.InternalServerError).send(error);
     }
 });
 
 // 로그인 인증
 router.get("/auth", async (req, res) => {
-    // 쿠키에서 토큰이 없으면 false로 반환함
+    // 쿠키에서 토큰이 없으면 response 값을 false로 반환하면 빠져나가도록 수정
     if(typeof req.cookies.x_auth === "undefined"){
-        console.log("no cookie");
         res.status(HttpStatusCode.Ok).json({
-            "isValidateToken": false
+            isValidateToken: false
         });
+        return;
     }
 
     const resultByToken = vaildateToken(req.cookies.x_auth.accessToken);

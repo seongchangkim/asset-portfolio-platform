@@ -1,7 +1,8 @@
 // react hook
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 // axios 
 import axios from 'axios';
+
 // next 라우터
 import { useRouter } from "next/navigation";
 import dynamic from 'next/dynamic';
@@ -14,16 +15,20 @@ import { setMemberState, getMemberState } from "@/store/member/member_slice";
 import { useSelector, useDispatch } from "react-redux";
 import { setAssetPortfolioState } from '@/store/asset_portfolio/asset_portfolio_slice';
 
-// 포트폴리오 상세보기 컴포넌트 lazy loading 하기
-const AssetPortfolioDetail = dynamic(() => import('@/components/asset_portfolio/asset_portfolio_detail'),{
-  ssr: false
-});
-// 대시보드 컴포넌트 lazy loading 하기
+// 포트폴리오 상세보기 컴포넌트 dynamic import 하기
+const AssetPortfolioDetail = lazy(() => import('@/components/asset_portfolio/asset_portfolio_detail'));
+
+// 대시보드 컴포넌트 dynamic import 하기
 const DashBoard = dynamic(() => import('../dashboard'), {
   ssr: false
 });
 
-export default function Home() {
+// 로딩 전용 컴포넌트를 dynamic import하도록 설정
+const Loading = dynamic(() => import("../components/util/loading"), {
+  ssr: false
+}); 
+
+const Home = () => {
   // 라우터
   const router = useRouter();
   const { replace } = router;
@@ -57,7 +62,9 @@ export default function Home() {
 
   return (  
     <DashBoard>
-      <AssetPortfolioDetail />
+      <Suspense fallback={<Loading content="로딩 중입니다.."/>}>
+        <AssetPortfolioDetail />
+      </Suspense>
     </DashBoard>
   );
 }
