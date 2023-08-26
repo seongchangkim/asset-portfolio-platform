@@ -142,5 +142,23 @@
 3). 검색 기능 : 맨 오른쪽에 검색 UI가 있는데 검색 카테고리를 고르고 검색어를 입력하면 회원 목록 api를 호출하여 그 검색 카테고리에 대한 데이터를 검색어와 비슷한 단어를 조회하는 다음에 웹 클라이언트에 reponse 값으로 페이지 처리에 필요한 값이나 회원 목록 데이터를 받아서 회원 목록 페이지에 리렌더링합니다.
 
 ### 8. 회원 상세보기/수정/삭제
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/28757647-260d-44ce-8e95-66044cceb4a5" /></p>
+<p align="center">회원 상세보기</p>
+
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/f5ea6b8c-3f5c-4ebf-81b6-8dc47c24febf" /></p>
+<p align="center">회원 수정(프로필 이미지 수정 없이)</p>
+
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/8201c1be-1e3a-4636-abc4-5aa955f2812f" /></p>
+<p align="center">회원 수정(프로필 이미지 수정)</p>
+
+<p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/c4b3122f-b4da-4713-95ab-5c5be203557e" /></p>
+<p align="center">회원 삭제</p>
+
+<br/>
+1). 회원 상세보기 : 회원 목록 페이지에서 해당 회원 이름을 클릭하면 회원 상세보기 웹 페이지에 이동하면서 회원 상세보기 API를 호출한 뒤에 렌더링합니다. <br /><br />
+2). 회원 수정 : 회원 상세보기 페이지에서 수정하고자 프로필 이미지 경로, 이름, 전화번호 및 회원 권한을 수정하여 수정 버튼을 클릭하면 회원 수정 API를 호출하여 수정하고자 프로필 이미지 경로, 이름, 전화번호 및 회원 권한을 request 값으로 들고 서버에 요청한 뒤에 DB에서 해당 회원을 조회해서 조회된 회원 데이터에 수정하고자 정보들로 수정하고 updatedAt 칼럼을 해당 API를 호출했던 시점으로 수정됩니다. 그다음에 회원 수정이 성공하면 회원 수정 알림창이 뜨고 회원 수정 알림창에 확인 버튼을 누르면 회원 상세보기 페이지에서 리렌더링됩니다. <br /><br />
+3). 회원 삭제 : 회원 상세보기 페이지에서 삭제를 누르면 회원 탈퇴 API를 호출함을 통해 request를 받고 DB에서 해당 회원 id로 조회하여 해당 회원과 일치하면 조회된 회원 데이터를 삭제되어 회원 삭제 처리가 성공하면 회원 삭제 알림창을 띄우고 회원 삭제 알림창에서 확인 버튼을 클릭하면 이전 페이지로 이동됩니다.
+
+### 9. 회원 권한에 따라 허용된 페이지, 로그인이 필요한 페이지 및 다른 회원 프로필 페이지 접근 금지
 
 
