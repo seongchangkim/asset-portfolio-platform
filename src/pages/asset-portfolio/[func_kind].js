@@ -157,7 +157,8 @@ const AssetPortfolioCreatePage = () => {
     const onProcessingAssetPortfolio = async () => {
         let totalRatio = 0;
         
-        registeredAssetRatio.forEach((ratio) => totalRatio += ratio);
+        registeredAssetRatio.forEach(ratio => totalRatio += typeof ratio === 'string' ? parseFloat(ratio) : ratio);
+        console.log(`totalRatio : ${totalRatio}`);
 
         if(totalRatio > 100){
             alert("등록된 자산들의 비율 합이 100퍼센트를 초과할 수 없습니다.");
@@ -252,12 +253,12 @@ const AssetPortfolioCreatePage = () => {
                             <PortfolioAssetInput 
                                 key={asset.asset_code}
                                 count={inputAssetCount} 
-                                index={++index} 
+                                index={index+1} 
                                 handleInputAssetCount={handleInputAssetCount} 
                                 handleRegisterAsset={handleRegisterAsset} 
                                 handleRegisterAssetRatio={handleRegisterAssetRatio}
                                 selectAssetParam={asset}
-                                assetRatioParam={asset.asset_ratio}
+                                assetRatioParam={registeredAssetRatio[index]}
                             />))
                     }
                     

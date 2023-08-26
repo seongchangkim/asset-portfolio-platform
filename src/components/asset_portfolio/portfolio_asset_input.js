@@ -5,7 +5,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import apiKey from "@/global/twelve_data/api_key";
 
-const PortfolioAssetInput = ({count, index, handleInputAssetCount, handleRegisterAsset, handleRegisterAssetRatio, selectAssetParam = {}, assetRatioParam = 0}) => {
+const PortfolioAssetInput = ({count, index, handleInputAssetCount, handleRegisterAsset, handleRegisterAssetRatio, selectAssetParam = {}, assetRatioParam }) => {
     // 선택된 자산
     const [ selectAsset, setSelectAsset ] = useState({});
     // 선택된 자산 비율
