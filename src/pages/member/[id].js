@@ -326,7 +326,7 @@ const Member = () => {
                                 <input tabindex="0" type="text" id="StreetAddress" name="streetAddress" required className="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm rounded bg-transparent text-sm focus:outline-none focus:border-indigo-700 placeholder-gray-500 text-gray-600 dark:text-gray-400" placeholder="" />
                             </div> */}
                             {/* 소셜로그인 */}
-                            <MemberDetailInputForm label="소셜로그인" id="socialLoginType" inputType="text" value={socialLoginType} onChange={setSocialLoginType} disabled={true}/>
+                            <MemberDetailInputForm label="소셜로그인" id="socialLoginType" inputType="text" value={socialLoginType} onChange={setSocialLoginType} isDisabled={true}/>
                         </div> 
                         <div>
                             {/* 권한 */}
