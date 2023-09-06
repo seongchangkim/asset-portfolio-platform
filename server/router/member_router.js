@@ -10,10 +10,9 @@ import mysql from "../mysql/index.js";
 
 // jwt
 import { generateToken, vaildateToken } from "../module/jwt/index.js";
-import { HttpStatusCode } from "axios";
 
 // axios
-import axios from "axios";
+import axios, { HttpStatusCode } from "axios";
 
 // 카카오 로그인 설정값 
 import kakaoLoginConfig from "../config/kakao_config.js";

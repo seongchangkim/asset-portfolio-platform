@@ -7,7 +7,6 @@ const createSalt = () => {
 
         return resolve(buf.toString("base64"));
     }));
-   
 };
 
 const cryptoPassword = async (plainPassword, memberSalt = "") => {

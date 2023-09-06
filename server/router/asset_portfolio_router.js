@@ -16,10 +16,8 @@ router.post("/", async (req, res) => {
     for(let i = 0 ; i< assetsForm.length ; i++){
         assetsForm[i][3] = portfolioResult.insertId;
     }
-
-    console.log(assetsForm);
     
-    const porfolioAssetsResult = await mysql.baseQuery("createAssets", [assetsForm]);
+    await mysql.baseQuery("createAssets", [assetsForm]);
 
     const portfolioInfo = await mysql.baseQuery("getAssetPortfolio", [portfolioResult.insertId]);
 
