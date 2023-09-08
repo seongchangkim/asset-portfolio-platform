@@ -79,41 +79,39 @@ const pagingProcessLogic = (totalCount, page) => {
     return lastPage;
 }
 
-// 회원 상세보기 API
-router.get("/member/:id", async (req, res) => {
-    const result = await mysql.baseQuery("getMember", req.params.id);
-    res.status(HttpStatusCode.Ok).json({
-        result
+router.route("/member/:id")
+    // 회원 상세보기 API
+    .get(async (req, res) => {
+        const result = await mysql.baseQuery("getMember", req.params.id);
+        res.status(HttpStatusCode.Ok).json({
+            result
+        });
+    // 회원 수정 API
+    })
+    .patch(upload.single("profile_img"), async (req, res) => {
+        const result = await mysql.baseQuery("updateMember", [req.body.name, req.body.email, req.body.tel, req.body.authRole, req.body.profileUrl, req.params.id]);
+    
+        let success = false;
+        if(result["changedRows"] === 1){
+            success = !success;
+        }
+
+        res.status(HttpStatusCode.Ok).json({
+            success
+        });
+    // 회원 삭제 및 회원 탈퇴 API
+    }).delete(async (req, res) => {
+        const result = await mysql.baseQuery("leaveMember", [req.params.id]);
+    
+        let isSucess = false;
+        if(result["affectedRows"] === 1){
+            isSucess = !isSucess
+        }
+    
+        res.status(HttpStatusCode.Ok).json({
+            success: isSucess
+        });
     });
-});
-
-// 회원 수정 API
-router.patch("/member/:id", upload.single("profile_img"), async (req, res) => {
-    const result = await mysql.baseQuery("updateMember", [req.body.name, req.body.email, req.body.tel, req.body.authRole, req.body.profileUrl, req.params.id]);
-   
-    let success = false;
-    if(result["changedRows"] === 1){
-        success = !success;
-    }
-
-    res.status(HttpStatusCode.Ok).json({
-        success
-    });
-});
-
-// 회원 삭제 및 회원 탈퇴 API
-router.delete("/member/:id", async (req, res) => {
-    const result = await mysql.baseQuery("leaveMember", [req.params.id]);
-
-    let isSucess = false;
-    if(result["affectedRows"] === 1){
-        isSucess = !isSucess
-    }
-
-    res.status(HttpStatusCode.Ok).json({
-        success: isSucess
-    });
-});
 
 export {
     router as adminRouter

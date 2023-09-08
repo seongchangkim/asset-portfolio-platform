@@ -154,28 +154,28 @@ router.post("/logout", async (req, res) => {
     } 
 });
 
-// 프로필 상세보기
-router.post("/:id", async (req, res) => {
-    const result = await mysql.baseQuery("getProfileInfo", [req.params.id, req.body.socialLoginKind]);
-    
-    res.status(HttpStatusCode.Ok).json({
-        result: result[0]
+
+router.route("/:id")
+    // 프로필 상세보기
+    .post(async (req, res) => {
+        const result = await mysql.baseQuery("getProfileInfo", [req.params.id, req.body.socialLoginKind]);
+        
+        res.status(HttpStatusCode.Ok).json({
+            result: result[0]
+        });
+    // 프로필 수정
+    }).patch(async (req, res) => {
+        const result = await mysql.baseQuery("updateProfile", [req.body.name, req.body.tel, req.body.profileUrl, req.params.id]);
+
+        let success = false;
+        if(result["changedRows"] === 1){
+            success = !success;
+        }
+
+        res.status(HttpStatusCode.Ok).json({
+            success
+        });
     });
-});
-
-// 프로필 수정
-router.patch("/:id", async (req, res) => {
-    const result = await mysql.baseQuery("updateProfile", [req.body.name, req.body.tel, req.body.profileUrl, req.params.id]);
-
-    let success = false;
-    if(result["changedRows"] === 1){
-        success = !success;
-    }
-
-    res.status(HttpStatusCode.Ok).json({
-        success
-    });
-});
 
 // 소셜 로그인
 router.post("/social-login/:socialLoginType", async (req, res) => {
