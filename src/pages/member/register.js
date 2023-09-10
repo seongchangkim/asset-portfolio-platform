@@ -1,9 +1,7 @@
-// import MemberInputForm from "@/components/member/member_input_form";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import BASE_URL from "@/global/base_url";
 import { useRouter } from 'next/router'
-// import MemberBtn from "@/components/member/member_btn";
 import { useDispatch, useSelector } from "react-redux";
 import { setMemberState, getMemberState } from "@/store/member/member_slice";
 import dynamic from "next/dynamic";

@@ -1,4 +1,4 @@
-const MemberInputForm = ({ inputState, setInputState ,label, type, validation, errors }) => {
+const MemberInputForm = ({ inputState, setInputState ,label, type}) => {
     const onChange = (event) => setInputState(event.target.value);
 
     return (
