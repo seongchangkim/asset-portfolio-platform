@@ -54,6 +54,10 @@
 ## 테이블 구조
 <img width="920" alt="image" src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/6eda2fa5-9553-4a3c-b47b-7daddfb9b20c" />
 
+## 서버에서 적용했던 주요 기술
+● crypto npm 모듈를 통해 pbkdf2 해시 암호화 알고리즘을 적용함으로써 회원에 대한 보안성을 높였습니다. <br/>
+● 가계부 플랫폼과 마찬가지로 jsonwebtoken npm 모듈을 통해 JWT 토큰 부분을 설정한 다음에 JWT 토큰 인증 방식으로 회원을 인증하도록 하여 서버에 부담을 덜하도록 했습니다.
+
 ## 주요 기능 및 페이지
 ### 1. 로그인
 <p align="center"><img src="https://github.com/seongchangkim/asset-portfolio-platform/assets/74657556/9723c216-2cd8-42f4-b66b-9b07683a5126"></p>
